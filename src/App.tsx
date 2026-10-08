@@ -1,11 +1,20 @@
 import { Outlet, Route, Routes } from 'react-router-dom'
 import BarraInferior from './componentes/BarraInferior'
-import Pantalla from './componentes/Pantalla'
+import Logo from './componentes/Logo'
+import Buscar from './pantallas/Buscar'
+import Ficha from './pantallas/Ficha'
+import Inicio from './pantallas/Inicio'
+import Medir from './pantallas/Medir'
+import Resultado from './pantallas/Resultado'
+import Rodeo from './pantallas/Rodeo'
 import { RodeoProvider } from './store/RodeoContext'
 
 function Marco() {
   return (
     <div className="mx-auto min-h-screen max-w-md pb-24">
+      <header className="p-5">
+        <Logo />
+      </header>
       <Outlet />
       <BarraInferior />
     </div>
@@ -17,13 +26,14 @@ export default function App() {
     <RodeoProvider>
       <Routes>
         <Route element={<Marco />}>
-          <Route index element={<Pantalla titulo="Buen día, Don Carlos" />} />
-          <Route path="pesar" element={<Pantalla titulo="¿Qué animal vas a pesar?" />} />
-          <Route path="medir/:caravana" element={<Pantalla titulo="Medir" />} />
-          <Route path="resultado/:caravana" element={<Pantalla titulo="Resultado" />} />
-          <Route path="animal/:caravana" element={<Pantalla titulo="Ficha del animal" />} />
-          <Route path="rodeo" element={<Pantalla titulo="Rodeo" />} />
+          <Route index element={<Inicio />} />
+          <Route path="pesar" element={<Buscar />} />
+          <Route path="resultado/:caravana" element={<Resultado />} />
+          <Route path="animal/:caravana" element={<Ficha />} />
+          <Route path="rodeo" element={<Rodeo />} />
         </Route>
+        {/* La cámara ocupa toda la pantalla, sin barra ni encabezado */}
+        <Route path="medir/:caravana" element={<Medir />} />
       </Routes>
     </RodeoProvider>
   )
